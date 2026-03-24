@@ -71,25 +71,25 @@
                         <div class="form-group location-group">
                             <label for="h-location" class="form-label">Location Details *</label>
                             
-                            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                            <div class="location-search-row">
                                 <input type="text" id="h-location" class="form-input"
                                     placeholder="Type an address and click Search, or drop a pin..." required>
-                                <button type="button" id="loc-btn-search" class="secondary-btn" style="white-space: nowrap;">Search Map</button>
+                                <button type="button" id="loc-btn-search" class="secondary-btn location-search-btn">Search Map</button>
                             </div>
 
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                <label class="form-label" style="margin: 0; font-size: 0.9em;">Pinpoint on Map</label>
-                                <button type="button" id="detect-location" class="detect-btn" title="Use my current location" style="padding: 6px 12px; font-size: 0.85em;">
+                            <div class="map-toolbar">
+                                <label class="form-label map-toolbar-label">Pinpoint on Map</label>
+                                <button type="button" id="detect-location" class="detect-btn" title="Use my current location">
                                     <i data-lucide="locate"></i> Auto Detect
                                 </button>
                             </div>
                             
                             <!-- Interactive Map Container -->
-                            <div id="hazard-map" style="height: 300px; width: 100%; border-radius: 8px; z-index: 1; border: 1px solid var(--border-light);"></div>
-                            <p class="form-hint" style="margin-top: 8px; font-size: 0.85rem; color: #64748b;">Click anywhere on the map to drop a pin.</p>
+                            <div id="hazard-map" class="hazard-map"></div>
+                            <p class="form-hint map-hint">Click anywhere on the map to drop a pin.</p>
                             
-                            <div style="margin-top: 12px;">
-                                <button type="button" id="confirm-location-btn" class="secondary-btn w-full" style="background-color: var(--card-bg); border-color: var(--primary); color: var(--primary);" disabled>
+                            <div class="confirm-location-wrap">
+                                <button type="button" id="confirm-location-btn" class="secondary-btn w-full confirm-location-btn" disabled>
                                     <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i> Confirm Location on Map
                                 </button>
                             </div>

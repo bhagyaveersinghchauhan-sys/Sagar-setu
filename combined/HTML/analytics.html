@@ -2,465 +2,467 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeoNetra - Analytics Dashboard</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="stylesheet" href="../CSS/analytics.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="../script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoNetra - Analytics Dashboard</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/analytics.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../script.js"></script>
 </head>
 
 <body class="page-analytics" data-page="analytics">
-    <div class="app-container">
-        <aside class="sidebar" aria-label="Primary"></aside>
+  <div class="app-container">
+    <aside class="sidebar" aria-label="Primary"></aside>
 
-        <main class="main-wrapper">
-            <header class="analytics-header">
-                <div>
-                    <h1 class="analytics-header-title">Natural Hazard Analytics Dashboard</h1>
-                    <p class="analytics-header-subtitle">Real-time insights from crowdsourced hazard reports</p>
-                </div>
-            </header>
-
-            <section class="analytics-container">
-                <div class="kpi-grid">
-                    <div class="glass-panel kpi-card">
-                        <div class="kpi-label"><i data-lucide="file-text"></i> Total Reports</div>
-                        <div class="kpi-value"><span class="counter" data-target="21900">0</span></div>
-                        <div class="kpi-subtext">+12% this month</div>
-                    </div>
-                    <div class="glass-panel kpi-card">
-                        <div class="kpi-label"><i data-lucide="flame"></i> Active Hazards</div>
-                        <div class="kpi-value"><span class="counter" data-target="342">0</span></div>
-                        <div class="kpi-subtext">Requires immediate review</div>
-                    </div>
-                    <div class="glass-panel kpi-card">
-                        <div class="kpi-label"><i data-lucide="map"></i> Affected Regions</div>
-                        <div class="kpi-value"><span class="counter" data-target="86">0</span></div>
-                        <div class="kpi-subtext">Across 4 coastal states</div>
-                    </div>
-                    <div class="glass-panel kpi-card">
-                        <div class="kpi-label"><i data-lucide="shield-check"></i> Verified Alerts</div>
-                        <div class="kpi-value"><span class="counter" data-target="1840">0</span></div>
-                        <div class="kpi-subtext">95% accuracy rate</div>
-                    </div>
-                    <div class="glass-panel kpi-card">
-                        <div class="kpi-label"><i data-lucide="alert-circle"></i> Highest Risk</div>
-                        <div class="kpi-value">Cyclone</div>
-                        <div class="kpi-subtext">Category 4 Warning</div>
-                    </div>
-                </div>
-
-                <div class="charts-row-3">
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="trending-up"></i> Reports Daily Trend</h3>
-                        </div>
-                        <div class="chart-wrapper-sm">
-                            <canvas id="reportsTrendChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="activity"></i> Active Hazards Trend</h3>
-                        </div>
-                        <div class="chart-wrapper-sm">
-                            <canvas id="activeTrendChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="users"></i> Users Reporting Trend</h3>
-                        </div>
-                        <div class="chart-wrapper-sm">
-                            <canvas id="usersTrendChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="charts-row-2">
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="bar-chart-2"></i> Hazard Types Distribution</h3>
-                        </div>
-                        <div class="chart-wrapper-md">
-                            <canvas id="hazardTypesChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="pie-chart"></i> Severity Distribution</h3>
-                        </div>
-                        <div class="chart-wrapper-md chart-wrapper-centered">
-                            <canvas id="severityChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="grid"></i> Hazards by Region &amp; Type</h3>
-                        </div>
-                        <div class="heatmap-container">
-                            <div class="heatmap-row">
-                                <div class="heatmap-header-cell">Region</div>
-                                <div class="heatmap-header-cell">Flood</div>
-                                <div class="heatmap-header-cell">Cyclone</div>
-                                <div class="heatmap-header-cell">Spill</div>
-                                <div class="heatmap-header-cell">Quake</div>
-                                <div class="heatmap-header-cell">Landslide</div>
-                            </div>
-                            <div class="heatmap-row">
-                                <div class="heatmap-row-label">Asia</div>
-                                <div class="heatmap-cell data" title="42 Events" style="background: rgba(0, 229, 255, 0.9);">42</div>
-                                <div class="heatmap-cell data" title="15 Events" style="background: rgba(0, 229, 255, 0.4);">15</div>
-                                <div class="heatmap-cell data" title="5 Events" style="background: rgba(0, 229, 255, 0.1);">5</div>
-                                <div class="heatmap-cell data" title="24 Events" style="background: rgba(0, 229, 255, 0.7);">24</div>
-                                <div class="heatmap-cell data" title="30 Events" style="background: rgba(0, 229, 255, 0.8);">30</div>
-                            </div>
-                            <div class="heatmap-row">
-                                <div class="heatmap-row-label">Africa</div>
-                                <div class="heatmap-cell data" title="10 Events" style="background: rgba(0, 229, 255, 0.2);">10</div>
-                                <div class="heatmap-cell data" title="2 Events" style="background: rgba(0, 229, 255, 0.05);">2</div>
-                                <div class="heatmap-cell data" title="0 Events" style="background: rgba(0, 229, 255, 0);">0</div>
-                                <div class="heatmap-cell data" title="12 Events" style="background: rgba(0, 229, 255, 0.3);">12</div>
-                                <div class="heatmap-cell data" title="8 Events" style="background: rgba(0, 229, 255, 0.2);">8</div>
-                            </div>
-                            <div class="heatmap-row">
-                                <div class="heatmap-row-label">Europe</div>
-                                <div class="heatmap-cell data" title="28 Events" style="background: rgba(0, 229, 255, 0.6);">28</div>
-                                <div class="heatmap-cell data" title="4 Events" style="background: rgba(0, 229, 255, 0.1);">4</div>
-                                <div class="heatmap-cell data" title="18 Events" style="background: rgba(0, 229, 255, 0.4);">18</div>
-                                <div class="heatmap-cell data" title="6 Events" style="background: rgba(0, 229, 255, 0.2);">6</div>
-                                <div class="heatmap-cell data" title="3 Events" style="background: rgba(0, 229, 255, 0.1);">3</div>
-                            </div>
-                            <div class="heatmap-row">
-                                <div class="heatmap-row-label">Coastal Zones</div>
-                                <div class="heatmap-cell data" title="65 Events" style="background: rgba(0, 229, 255, 1);">65</div>
-                                <div class="heatmap-cell data" title="54 Events" style="background: rgba(0, 229, 255, 0.85);">54</div>
-                                <div class="heatmap-cell data" title="22 Events" style="background: rgba(0, 229, 255, 0.5);">22</div>
-                                <div class="heatmap-cell data" title="8 Events" style="background: rgba(0, 229, 255, 0.2);">8</div>
-                                <div class="heatmap-cell data" title="14 Events" style="background: rgba(0, 229, 255, 0.3);">14</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="glass-panel chart-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title"><i data-lucide="list"></i> Recent Reports</h3>
-                        </div>
-                        <div class="reports-table-wrapper">
-                            <table class="analytics-table">
-                                <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                        <th>Hazard Type</th>
-                                        <th>Severity</th>
-                                        <th>Time</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Mumbai Coast</td>
-                                        <td>Coastal Flooding</td>
-                                        <td><span class="badge-neon badge-red">High Risk</span></td>
-                                        <td>10 mins ago</td>
-                                        <td class="status-active">Active</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chennai Harbor</td>
-                                        <td>Cyclone Warning</td>
-                                        <td><span class="badge-neon badge-orange">Medium</span></td>
-                                        <td>2 hours ago</td>
-                                        <td class="status-monitoring">Monitoring</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kerala Backwaters</td>
-                                        <td>Algal Bloom</td>
-                                        <td><span class="badge-neon badge-green">Low Risk</span></td>
-                                        <td>5 hours ago</td>
-                                        <td class="status-resolved">Resolved</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Goa Shoreline</td>
-                                        <td>Oil Spill Traces</td>
-                                        <td><span class="badge-neon badge-orange">Medium</span></td>
-                                        <td>1 day ago</td>
-                                        <td class="status-active">Active</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <div id="hazard-notification" class="hazard-notification">
-        <div class="hazard-card" id="hazard-card-clickable" role="button" tabindex="0">
-            <div class="hazard-header">
-                <div class="hazard-icon-warning">
-                    <i data-lucide="alert-triangle"></i>
-                </div>
-                <div class="hazard-content">
-                    <h4 class="hazard-title">Report Hazard</h4>
-                    <p class="hazard-message">Report any environmental hazards in your area</p>
-                </div>
-            </div>
-            <div class="hazard-timer-section">
-                <div class="hazard-timer" id="hazard-timer">10</div>
-                <button class="hazard-close-btn" id="hazard-close-btn" title="Close" type="button">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
+    <main class="main-wrapper">
+      <header class="analytics-header">
+        <div>
+          <h1 class="analytics-header-title">Natural Hazard Analytics Dashboard</h1>
+          <p class="analytics-header-subtitle">Real-time insights from crowdsourced hazard reports and monitoring activity</p>
         </div>
-    </div>
+      </header>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const chartCanvas = document.getElementById("reportsTrendChart");
-            if (!chartCanvas || typeof Chart === "undefined") {
-                if (typeof lucide !== "undefined") {
-                    lucide.createIcons();
-                }
-                return;
+      <section class="analytics-container">
+        <div class="kpi-grid">
+          <div class="glass-panel kpi-card">
+            <div class="kpi-label"><i data-lucide="file-text"></i> Total Reports</div>
+            <div class="kpi-value"><span class="counter" data-target="21900">0</span></div>
+            <div class="kpi-subtext">+12% this month</div>
+          </div>
+          <div class="glass-panel kpi-card">
+            <div class="kpi-label"><i data-lucide="flame"></i> Active Hazards</div>
+            <div class="kpi-value"><span class="counter" data-target="342">0</span></div>
+            <div class="kpi-subtext">Requires immediate review</div>
+          </div>
+          <div class="glass-panel kpi-card">
+            <div class="kpi-label"><i data-lucide="map"></i> Affected Regions</div>
+            <div class="kpi-value"><span class="counter" data-target="86">0</span></div>
+            <div class="kpi-subtext">Across monitored zones</div>
+          </div>
+          <div class="glass-panel kpi-card">
+            <div class="kpi-label"><i data-lucide="shield-check"></i> Verified Alerts</div>
+            <div class="kpi-value"><span class="counter" data-target="1840">0</span></div>
+            <div class="kpi-subtext">95% accuracy rate</div>
+          </div>
+          <div class="glass-panel kpi-card">
+            <div class="kpi-label"><i data-lucide="alert-circle"></i> Highest Risk</div>
+            <div class="kpi-value">Cyclone</div>
+            <div class="kpi-subtext">Category 4 warning</div>
+          </div>
+        </div>
+
+        <div class="charts-row-3">
+          <div class="glass-panel chart-panel">
+            <div class="panel-header"><h3 class="panel-title"><i data-lucide="trending-up"></i> Reports Daily Trend</h3></div>
+            <div class="chart-wrapper-sm"><canvas id="reportsTrendChart"></canvas></div>
+          </div>
+          <div class="glass-panel chart-panel">
+            <div class="panel-header"><h3 class="panel-title"><i data-lucide="activity"></i> Active Hazards Trend</h3></div>
+            <div class="chart-wrapper-sm"><canvas id="activeTrendChart"></canvas></div>
+          </div>
+          <div class="glass-panel chart-panel">
+            <div class="panel-header"><h3 class="panel-title"><i data-lucide="users"></i> Users Reporting Trend</h3></div>
+            <div class="chart-wrapper-sm"><canvas id="usersTrendChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="charts-row-2">
+          <div class="glass-panel chart-panel">
+            <div class="panel-header"><h3 class="panel-title"><i data-lucide="bar-chart-2"></i> Hazard Types Distribution</h3></div>
+            <div class="chart-wrapper-md"><canvas id="hazardTypesChart"></canvas></div>
+          </div>
+          <div class="glass-panel chart-panel">
+            <div class="panel-header"><h3 class="panel-title"><i data-lucide="pie-chart"></i> Severity Distribution</h3></div>
+            <div class="chart-wrapper-md chart-wrapper-centered"><canvas id="severityChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="bottom-row">
+          <div class="glass-panel chart-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <h3 class="panel-title"><i data-lucide="grid"></i> Hazard Hotspot Heat Map</h3>
+                <p class="panel-subtitle">Compare where each hazard type appears most often so frequent hotspots are easy to spot.</p>
+              </div>
+              <div class="heatmap-legend" aria-label="Heat map intensity legend">
+                <span class="heatmap-legend-label">Low</span>
+                <div class="heatmap-legend-bar"></div>
+                <span class="heatmap-legend-label">High</span>
+              </div>
+            </div>
+            <div class="heatmap-container">
+              <div class="heatmap-row">
+                <div class="heatmap-header-cell">Hazard</div>
+                <div class="heatmap-header-cell">Mumbai Coast</div>
+                <div class="heatmap-header-cell">Chennai Belt</div>
+                <div class="heatmap-header-cell">Kerala Region</div>
+                <div class="heatmap-header-cell">North-East Hills</div>
+                <div class="heatmap-header-cell">Industrial Corridors</div>
+              </div>
+              <div class="heatmap-row">
+                <div class="heatmap-row-label">Flood</div>
+                <div class="heatmap-cell data heat-flood-strong">42</div>
+                <div class="heatmap-cell data heat-flood-medium">28</div>
+                <div class="heatmap-cell data heat-flood-high">51</div>
+                <div class="heatmap-cell data heat-flood-low">14</div>
+                <div class="heatmap-cell data heat-flood-low">10</div>
+              </div>
+              <div class="heatmap-row">
+                <div class="heatmap-row-label">Cyclone</div>
+                <div class="heatmap-cell data heat-cyclone-medium">18</div>
+                <div class="heatmap-cell data heat-cyclone-strong">54</div>
+                <div class="heatmap-cell data heat-cyclone-low">9</div>
+                <div class="heatmap-cell data heat-cyclone-low">4</div>
+                <div class="heatmap-cell data heat-cyclone-low">3</div>
+              </div>
+              <div class="heatmap-row">
+                <div class="heatmap-row-label">Landslide</div>
+                <div class="heatmap-cell data heat-landslide-low">6</div>
+                <div class="heatmap-cell data heat-landslide-low">12</div>
+                <div class="heatmap-cell data heat-landslide-medium">22</div>
+                <div class="heatmap-cell data heat-landslide-strong">47</div>
+                <div class="heatmap-cell data heat-landslide-low">7</div>
+              </div>
+              <div class="heatmap-row">
+                <div class="heatmap-row-label">Earthquake</div>
+                <div class="heatmap-cell data heat-earthquake-low">5</div>
+                <div class="heatmap-cell data heat-earthquake-low">3</div>
+                <div class="heatmap-cell data heat-earthquake-low">8</div>
+                <div class="heatmap-cell data heat-earthquake-strong">31</div>
+                <div class="heatmap-cell data heat-earthquake-low">2</div>
+              </div>
+              <div class="heatmap-row">
+                <div class="heatmap-row-label">Fire</div>
+                <div class="heatmap-cell data heat-fire-low">7</div>
+                <div class="heatmap-cell data heat-fire-medium">16</div>
+                <div class="heatmap-cell data heat-fire-low">11</div>
+                <div class="heatmap-cell data heat-fire-low">5</div>
+                <div class="heatmap-cell data heat-fire-strong">39</div>
+              </div>
+              <div class="heatmap-row">
+                <div class="heatmap-row-label">Chemical Spill</div>
+                <div class="heatmap-cell data heat-spill-low">4</div>
+                <div class="heatmap-cell data heat-spill-low">6</div>
+                <div class="heatmap-cell data heat-spill-low">5</div>
+                <div class="heatmap-cell data heat-spill-low">3</div>
+                <div class="heatmap-cell data heat-spill-strong">27</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel chart-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <h3 class="panel-title"><i data-lucide="map-pinned"></i> Geographic Heat Map</h3>
+                <p class="panel-subtitle">A quick visual of high-frequency hazard clusters across major monitored areas.</p>
+              </div>
+            </div>
+            <div class="geo-heatmap-card">
+              <div id="analytics-heatmap" class="geo-heatmap-stage" aria-label="Hazard hotspot map"></div>
+
+              <div class="geo-heatmap-legend">
+                <div class="geo-legend-item"><span class="geo-legend-dot flood"></span><span>Flood</span></div>
+                <div class="geo-legend-item"><span class="geo-legend-dot cyclone"></span><span>Cyclone</span></div>
+                <div class="geo-legend-item"><span class="geo-legend-dot landslide"></span><span>Landslide</span></div>
+                <div class="geo-legend-item"><span class="geo-legend-dot earthquake"></span><span>Earthquake</span></div>
+                <div class="geo-legend-item"><span class="geo-legend-dot spill"></span><span>Chemical Spill</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel chart-panel">
+            <div class="panel-header"><h3 class="panel-title"><i data-lucide="list"></i> Recent Reports</h3></div>
+            <div class="reports-table-wrapper">
+              <table class="analytics-table">
+                <thead>
+                  <tr>
+                    <th>Location</th>
+                    <th>Hazard Type</th>
+                    <th>Severity</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Mumbai Coast</td>
+                    <td>Coastal Flooding</td>
+                    <td><span class="badge-neon badge-red">High Risk</span></td>
+                    <td>10 mins ago</td>
+                    <td class="status-active">Active</td>
+                  </tr>
+                  <tr>
+                    <td>Chennai Harbor</td>
+                    <td>Cyclone Warning</td>
+                    <td><span class="badge-neon badge-orange">Medium</span></td>
+                    <td>2 hours ago</td>
+                    <td class="status-monitoring">Monitoring</td>
+                  </tr>
+                  <tr>
+                    <td>Kerala Backwaters</td>
+                    <td>Algal Bloom</td>
+                    <td><span class="badge-neon badge-green">Low Risk</span></td>
+                    <td>5 hours ago</td>
+                    <td class="status-resolved">Resolved</td>
+                  </tr>
+                  <tr>
+                    <td>Goa Shoreline</td>
+                    <td>Oil Spill Traces</td>
+                    <td><span class="badge-neon badge-orange">Medium</span></td>
+                    <td>1 day ago</td>
+                    <td class="status-active">Active</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof Chart === "undefined") return;
+
+      const textColor = getComputedStyle(document.body).getPropertyValue("--text-muted").trim() || "#64748b";
+      const titleColor = getComputedStyle(document.body).getPropertyValue("--text-head").trim() || "#0f172a";
+      const borderColor = "rgba(148, 163, 184, 0.18)";
+
+      Chart.defaults.color = textColor;
+      Chart.defaults.font.family = "'Inter', sans-serif";
+
+      const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            top: 8,
+            right: 8,
+            bottom: 0,
+            left: 4
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: "rgba(15, 23, 42, 0.92)",
+            titleColor: "#fff",
+            bodyColor: "#fff",
+            borderColor,
+            borderWidth: 1,
+            padding: 12,
+            displayColors: false
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false, drawBorder: false },
+            ticks: {
+              color: textColor,
+              maxRotation: 18,
+              minRotation: 0,
+              autoSkip: false,
+              padding: 10
             }
+          },
+          y: {
+            grid: { color: borderColor, drawBorder: false },
+            ticks: { color: textColor, padding: 8 },
+            beginAtZero: true
+          }
+        },
+        elements: {
+          line: { tension: 0.4, borderWidth: 3 },
+          point: { radius: 0, hitRadius: 10, hoverRadius: 6 }
+        }
+      };
 
-            const cyan = "#00E5FF";
-            const green = "#00FFA3";
-            const purple = "#8A5CF6";
-            const gridColor = "rgba(255,255,255,0.05)";
+      const createGradient = (ctx, color) => {
+        const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+        gradient.addColorStop(0, `${color}66`);
+        gradient.addColorStop(1, `${color}00`);
+        return gradient;
+      };
 
-            Chart.defaults.color = "#94A3B8";
-            Chart.defaults.font.family = "'Inter', sans-serif";
+      const reportsCtx = document.getElementById("reportsTrendChart").getContext("2d");
+      const activeCtx = document.getElementById("activeTrendChart").getContext("2d");
+      const usersCtx = document.getElementById("usersTrendChart").getContext("2d");
 
-            const commonOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: "rgba(11, 15, 26, 0.9)",
-                        titleColor: "#fff",
-                        bodyColor: "#fff",
-                        borderColor: "rgba(0, 229, 255, 0.3)",
-                        borderWidth: 1,
-                        padding: 12,
-                        displayColors: false
-                    }
-                },
-                scales: {
-                    x: { grid: { display: false, drawBorder: false } },
-                    y: { grid: { color: gridColor, drawBorder: false }, beginAtZero: true }
-                },
-                elements: {
-                    line: { tension: 0.4, borderWidth: 3 },
-                    point: { radius: 0, hitRadius: 10, hoverRadius: 6 }
-                }
-            };
+      new Chart(reportsCtx, {
+        type: "line",
+        data: { labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], datasets: [{ data: [120, 190, 150, 220, 180, 280, 250], borderColor: "#2563eb", backgroundColor: createGradient(reportsCtx, "#2563eb"), fill: true }] },
+        options: commonOptions
+      });
 
-            const ctxReports = document.getElementById("reportsTrendChart").getContext("2d");
-            const gradientCyan = ctxReports.createLinearGradient(0, 0, 0, 250);
-            gradientCyan.addColorStop(0, "rgba(0, 229, 255, 0.4)");
-            gradientCyan.addColorStop(1, "rgba(0, 229, 255, 0)");
+      new Chart(activeCtx, {
+        type: "line",
+        data: { labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], datasets: [{ data: [40, 50, 45, 60, 55, 75, 65], borderColor: "#7c3aed", backgroundColor: createGradient(activeCtx, "#7c3aed"), fill: true }] },
+        options: commonOptions
+      });
 
-            new Chart(ctxReports, {
-                type: "line",
-                data: {
-                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                    datasets: [{
-                        data: [120, 190, 150, 220, 180, 280, 250],
-                        borderColor: cyan,
-                        backgroundColor: gradientCyan,
-                        fill: true
-                    }]
-                },
-                options: commonOptions
-            });
+      new Chart(usersCtx, {
+        type: "line",
+        data: { labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], datasets: [{ data: [500, 600, 550, 800, 750, 950, 1100], borderColor: "#0891b2", backgroundColor: createGradient(usersCtx, "#0891b2"), fill: true }] },
+        options: commonOptions
+      });
 
-            const ctxActive = document.getElementById("activeTrendChart").getContext("2d");
-            const gradientPurple = ctxActive.createLinearGradient(0, 0, 0, 250);
-            gradientPurple.addColorStop(0, "rgba(138, 92, 246, 0.4)");
-            gradientPurple.addColorStop(1, "rgba(138, 92, 246, 0)");
-
-            new Chart(ctxActive, {
-                type: "line",
-                data: {
-                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                    datasets: [{
-                        data: [40, 50, 45, 60, 55, 75, 65],
-                        borderColor: purple,
-                        backgroundColor: gradientPurple,
-                        fill: true
-                    }]
-                },
-                options: commonOptions
-            });
-
-            const ctxUsers = document.getElementById("usersTrendChart").getContext("2d");
-            const gradientGreen = ctxUsers.createLinearGradient(0, 0, 0, 250);
-            gradientGreen.addColorStop(0, "rgba(0, 255, 163, 0.4)");
-            gradientGreen.addColorStop(1, "rgba(0, 255, 163, 0)");
-
-            new Chart(ctxUsers, {
-                type: "line",
-                data: {
-                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                    datasets: [{
-                        data: [500, 600, 550, 800, 750, 950, 1100],
-                        borderColor: green,
-                        backgroundColor: gradientGreen,
-                        fill: true
-                    }]
-                },
-                options: commonOptions
-            });
-
-            const ctxTypes = document.getElementById("hazardTypesChart").getContext("2d");
-            new Chart(ctxTypes, {
-                type: "bar",
-                data: {
-                    labels: ["Floods", "Cyclones", "Landslides", "Quakes", "Oil Spills", "Coral Bleach"],
-                    datasets: [{
-                        data: [350, 280, 150, 100, 80, 60],
-                        backgroundColor: [
-                            "rgba(0, 229, 255, 0.8)",
-                            "rgba(138, 92, 246, 0.8)",
-                            "rgba(255, 122, 0, 0.8)",
-                            "rgba(255, 59, 48, 0.8)",
-                            "rgba(0, 255, 163, 0.8)",
-                            "rgba(148, 163, 184, 0.8)"
-                        ],
-                        borderRadius: 6,
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    ...commonOptions,
-                    scales: {
-                        x: { grid: { display: false } },
-                        y: { grid: { color: gridColor }, beginAtZero: true }
-                    }
-                }
-            });
-
-            const ctxSeverity = document.getElementById("severityChart").getContext("2d");
-            new Chart(ctxSeverity, {
-                type: "doughnut",
-                data: {
-                    labels: ["High Risk", "Medium Risk", "Low Risk"],
-                    datasets: [{
-                        data: [25, 45, 30],
-                        backgroundColor: ["#FF3B30", "#FF7A00", "#00FFA3"],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: "75%",
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: "right",
-                            labels: { color: "#94A3B8", boxWidth: 12, padding: 20 }
-                        }
-                    }
-                }
-            });
-
-            const counters = document.querySelectorAll(".counter");
-            counters.forEach((counter) => {
-                const target = Number(counter.getAttribute("data-target"));
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                let current = 0;
-
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.innerText = Math.ceil(current).toLocaleString();
-                        requestAnimationFrame(updateCounter);
-                    } else if (target >= 1000) {
-                        counter.innerText = `${(target / 1000).toFixed(1)}K`;
-                    } else {
-                        counter.innerText = String(target);
-                    }
-                };
-
-                updateCounter();
-            });
-
-            function initializeHazardNotification() {
-                const hazardNotif = document.getElementById("hazard-notification");
-                const hazardCard = document.getElementById("hazard-card-clickable");
-                const hazardTimer = document.getElementById("hazard-timer");
-                const hazardCloseBtn = document.getElementById("hazard-close-btn");
-
-                if (!hazardNotif || !hazardCard || !hazardTimer || !hazardCloseBtn) return;
-
-                let timeRemaining = 10;
-                let timerInterval;
-
-                if (typeof lucide !== "undefined") {
-                    lucide.createIcons();
-                }
-
-                hazardNotif.classList.add("show");
-
-                hazardCard.addEventListener("click", (e) => {
-                    if (e.target === hazardCloseBtn || hazardCloseBtn.contains(e.target)) {
-                        return;
-                    }
-                    window.location.href = localStorage.getItem("geonetra_verified") === "true" ? "hazard.html" : "login.html";
-                });
-
-                hazardCard.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        window.location.href = localStorage.getItem("geonetra_verified") === "true" ? "hazard.html" : "login.html";
-                    }
-                });
-
-                timerInterval = window.setInterval(() => {
-                    timeRemaining -= 1;
-                    hazardTimer.textContent = String(timeRemaining);
-
-                    if (timeRemaining <= 0) {
-                        window.clearInterval(timerInterval);
-                        dismissHazardNotification();
-                    }
-                }, 1000);
-
-                hazardCloseBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    window.clearInterval(timerInterval);
-                    dismissHazardNotification();
-                });
+      new Chart(document.getElementById("hazardTypesChart").getContext("2d"), {
+        type: "bar",
+        data: {
+          labels: ["Floods", "Cyclones", "Landslides", "Quakes", "Oil Spills", "Coral Bleach"],
+          datasets: [{ data: [350, 280, 150, 100, 80, 60], backgroundColor: ["#2563eb", "#7c3aed", "#f97316", "#ef4444", "#0f766e", "#94a3b8"], borderRadius: 8, borderWidth: 0 }]
+        },
+        options: {
+          ...commonOptions,
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: {
+                color: textColor,
+                maxRotation: 14,
+                minRotation: 0,
+                autoSkip: false,
+                padding: 12
+              }
+            },
+            y: {
+              grid: { color: borderColor, drawBorder: false },
+              ticks: { color: textColor, padding: 8 },
+              beginAtZero: true
             }
+          }
+        }
+      });
 
-            function dismissHazardNotification() {
-                const hazardNotif = document.getElementById("hazard-notification");
-                if (!hazardNotif) return;
-
-                hazardNotif.classList.add("dismiss");
-                window.setTimeout(() => {
-                    hazardNotif.classList.remove("show", "dismiss");
-                }, 400);
+      new Chart(document.getElementById("severityChart").getContext("2d"), {
+        type: "doughnut",
+        data: {
+          labels: ["High Risk", "Medium Risk", "Low Risk"],
+          datasets: [{ data: [25, 45, 30], backgroundColor: ["#ef4444", "#f59e0b", "#10b981"], borderWidth: 0, hoverOffset: 10 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "75%",
+          plugins: {
+            legend: {
+              display: true,
+              position: "right",
+              labels: { color: titleColor, boxWidth: 12, padding: 16 }
             }
+          }
+        }
+      });
 
-            if (typeof lucide !== "undefined") {
-                lucide.createIcons();
+      const analyticsMapEl = document.getElementById("analytics-heatmap");
+      if (analyticsMapEl && typeof L !== "undefined" && typeof L.heatLayer === "function") {
+        const analyticsMap = L.map("analytics-heatmap", {
+          zoomControl: false,
+          attributionControl: false,
+          scrollWheelZoom: false
+        }).setView([21.2, 80.6], 5);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 18
+        }).addTo(analyticsMap);
+
+        analyticsMap.fitBounds([[8.5, 68.0], [30.5, 95.5]], { padding: [20, 20] });
+
+        const heatLayers = [
+          {
+            points: [
+              [19.076, 72.8777, 0.95],
+              [18.96, 72.82, 0.78],
+              [19.22, 72.97, 0.62],
+              [22.57, 88.36, 0.44]
+            ],
+            gradient: {
+              0.2: "rgba(37,99,235,0.06)",
+              0.45: "rgba(37,99,235,0.18)",
+              0.7: "rgba(37,99,235,0.34)",
+              1.0: "rgba(96,165,250,0.52)"
             }
-            initializeHazardNotification();
+          },
+          {
+            points: [
+              [13.0827, 80.2707, 1.0],
+              [12.95, 80.18, 0.82],
+              [16.5062, 80.648, 0.46],
+              [11.94, 79.81, 0.34]
+            ],
+            gradient: {
+              0.2: "rgba(14,165,233,0.06)",
+              0.45: "rgba(14,165,233,0.18)",
+              0.7: "rgba(14,165,233,0.32)",
+              1.0: "rgba(34,211,238,0.5)"
+            }
+          },
+          {
+            points: [
+              [10.8505, 76.2711, 0.88],
+              [11.0168, 76.9558, 0.68],
+              [9.9312, 76.2673, 0.52],
+              [30.3165, 78.0322, 0.32]
+            ],
+            gradient: {
+              0.2: "rgba(245,158,11,0.06)",
+              0.45: "rgba(245,158,11,0.18)",
+              0.7: "rgba(249,115,22,0.3)",
+              1.0: "rgba(251,191,36,0.46)"
+            }
+          },
+          {
+            points: [
+              [25.5788, 91.8933, 0.84],
+              [26.1445, 91.7362, 0.76],
+              [27.0844, 93.6053, 0.58],
+              [24.817, 93.9368, 0.38]
+            ],
+            gradient: {
+              0.2: "rgba(139,92,246,0.06)",
+              0.45: "rgba(139,92,246,0.18)",
+              0.7: "rgba(168,85,247,0.3)",
+              1.0: "rgba(196,181,253,0.46)"
+            }
+          },
+          {
+            points: [
+              [23.0225, 72.5714, 0.62],
+              [22.3072, 73.1812, 0.42],
+              [21.1702, 72.8311, 0.4],
+              [17.385, 78.4867, 0.24]
+            ],
+            gradient: {
+              0.2: "rgba(16,185,129,0.06)",
+              0.45: "rgba(16,185,129,0.16)",
+              0.7: "rgba(20,184,166,0.26)",
+              1.0: "rgba(74,222,128,0.4)"
+            }
+          }
+        ];
+
+        heatLayers.forEach((layerConfig) => {
+          L.heatLayer(layerConfig.points, {
+            radius: 34,
+            blur: 28,
+            maxZoom: 7,
+            minOpacity: 0.18,
+            gradient: layerConfig.gradient
+          }).addTo(analyticsMap);
         });
-    </script>
+      }
+
+      if (typeof lucide !== "undefined") {
+        lucide.createIcons();
+      }
+    });
+  </script>
 </body>
 
 </html>
