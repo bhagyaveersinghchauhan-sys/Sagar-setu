@@ -626,30 +626,53 @@ function initializeMapPage() {
   });
 
   const openHazardPanel = (details) => {
-    if (!hazardPanel) return;
-    document.getElementById("panel-type").textContent = details.type;
-    document.getElementById("panel-icon").textContent = details.iconStr;
-    document.getElementById("panel-location").textContent = details.title;
-    document.getElementById("panel-time").textContent = details.timeStr;
-    document.getElementById("panel-raw-text").textContent = details.rawText;
-    const severity = document.getElementById("panel-severity");
-    severity.textContent = details.severity;
-    severity.className = `severity-badge severity-${details.severity}`;
-
-    const photoSection = document.getElementById("panel-photo-section");
-    const photo = document.getElementById("panel-photo");
-    if (details.photoUrl) {
-      photo.src = details.photoUrl;
-      photoSection.hidden = false;
-    } else {
-      photo.removeAttribute("src");
-      photoSection.hidden = true;
+    const actualPanel = hazardPanel || document.getElementById("hazard-panel");
+    if (!actualPanel) {
+      console.error("Hazard panel element not found in the DOM.");
+      return;
     }
 
-    currentSummary = details.summary || null;
-    updateSummaryPanel(details.summary?.original ? "original" : details.summary?.english ? "english" : "hindi");
-    hazardPanel.classList.remove("collapsed");
-    map.flyTo(details.latlng, 12, { animate: true, duration: 1 });
+    // Ensure it opens even if content updates fail
+    actualPanel.classList.remove("collapsed");
+
+    try {
+      const elType = document.getElementById("panel-type");
+      const elIcon = document.getElementById("panel-icon");
+      const elLoc = document.getElementById("panel-location");
+      const elTime = document.getElementById("panel-time");
+      const elSev = document.getElementById("panel-severity");
+
+      if (elType) elType.textContent = details.type || "Unknown Event";
+      if (elIcon) elIcon.textContent = details.iconStr || "⚠️";
+      if (elLoc) elLoc.textContent = details.title || "Unknown Location";
+      if (elTime) elTime.textContent = details.timeStr || "Recently reported";
+      
+      if (elSev) {
+        elSev.textContent = details.severity || "medium";
+        elSev.className = `severity-badge severity-${details.severity || 'medium'}`;
+      }
+
+      const photoSection = document.getElementById("panel-photo-section");
+      const photo = document.getElementById("panel-photo");
+      if (photoSection && photo) {
+        if (details.photoUrl) {
+          photo.src = details.photoUrl;
+          photoSection.hidden = false;
+        } else {
+          photo.removeAttribute("src");
+          photoSection.hidden = true;
+        }
+      }
+
+      currentSummary = details.summary || null;
+      updateSummaryPanel(details.summary?.original ? "original" : details.summary?.english ? "english" : "hindi");
+      
+      if (map && details.latlng) {
+        map.flyTo(details.latlng, 12, { animate: true, duration: 1 });
+      }
+    } catch (err) {
+      console.warn("Error updating hazard panel content:", err);
+    }
   };
 
   closePanelBtn?.addEventListener("click", () => hazardPanel?.classList.add("collapsed"));
@@ -770,8 +793,18 @@ function initializeLoginFlow() {
     event.preventDefault();
     const otp = document.getElementById("otp").value.trim();
     if (otp.length !== 6) return;
-    localStorage.setItem(VERIFICATION_STORAGE_KEY, "true");
-    window.location.href = "hazard.html";
+
+    const submitBtn = otpForm.querySelector(".login-submit-btn");
+    const originalContent = submitBtn.innerHTML;
+
+    // Premium "Verifying" state
+    submitBtn.classList.add("verifying");
+    submitBtn.innerHTML = '<div class="spinner"></div> <span>Verifying...</span>';
+
+    window.setTimeout(() => {
+      localStorage.setItem(VERIFICATION_STORAGE_KEY, "true");
+      window.location.href = "hazard.html";
+    }, 1200);
   });
 
   resendBtn?.addEventListener("click", () => {
