@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoNetra - Profile</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/profile.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script type="module" src="../script.js"></script>
+</head>
+<body data-page="profile">
+  <div class="app-container">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" aria-label="Primary"></aside>
+
+    <!-- ── Main ── -->
+    <main class="main-wrapper">
+
+      <header class="top-header">
+        <div>
+          <div class="header-title">My Profile</div>
+          <div class="header-subtitle">Manage your preferences and notifications</div>
+        </div>
+        <div class="header-actions">
+          <button class="notification-btn" title="Notifications">
+            <span class="badge">3</span>
+            <i data-lucide="bell"></i>
+          </button>
+          <a href="profile.html" class="user-profile">
+            <div class="avatar">U</div>
+            <div>
+              <div class="profile-name">User</div>
+              <span class="profile-role">Observer</span>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="profile-bg">
+        <section class="content-area">
+          <h2 class="section-title text-light">Profile Settings</h2>
+
+          <article class="glass-card form-card" style="background: rgba(15, 23, 42, 0.35); backdrop-filter: blur(12px); border-color: rgba(255, 255, 255, 0.15); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+            <!-- Avatar row -->
+            <div style="display:flex; align-items:center; gap:1.5rem; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(255, 255, 255, 0.15);">
+              <div class="avatar" style="width:68px; height:68px; font-size:2rem; flex-shrink:0;">U</div>
+              <div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.25rem; font-weight:800; color:#f1f5f9;">Observer User</div>
+                <div style="font-size:0.85rem; color:#93c5fd; font-weight:600; margin-top:2px;">guest@geonetra.network</div>
+              </div>
+            </div>
+
+            <form class="report-form" action="javascript:void(0);" onsubmit="alert('Settings saved successfully!');">
+
+              <div class="form-group">
+                <label for="display-name" class="form-label" style="color: #cbd5e1;">Display Name</label>
+                <input type="text" id="display-name" class="form-input" style="background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15); color: #fff;" value="Observer User">
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label" style="color: #cbd5e1;">Email Address</label>
+                <input type="email" id="email" class="form-input" style="background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15); color: #fff;" value="guest@geonetra.network">
+              </div>
+
+              <div class="form-group">
+                <label for="alerts" class="form-label" style="color: #cbd5e1;">Alert Preferences</label>
+                <select id="alerts" class="form-input" style="background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15); color: #fff;">
+                  <option style="color: var(--text-head);">All critical alerts</option>
+                  <option style="color: var(--text-head);">High severity only</option>
+                  <option style="color: var(--text-head);">Do not disturb</option>
+                </select>
+              </div>
+
+              <button type="submit" class="submit-btn">Save Settings</button>
+            </form>
+          </article>
+        </section>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>

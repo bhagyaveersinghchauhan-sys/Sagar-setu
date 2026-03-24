@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoNetra - Home</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/index.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script type="module" src="script.js"></script>
+</head>
+
+<body class="page-index" data-page="home">
+  <div class="app-container">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" aria-label="Primary"></aside>
+
+    <!-- ── Main ── -->
+    <main class="main-wrapper">
+
+      <header class="top-header">
+        <div>
+          <div class="header-title">Home</div>
+          <div class="header-subtitle">Real-time Safety &amp; Hazard Monitoring</div>
+        </div>
+        <div class="header-actions">
+          <button class="notification-btn" id="home-notification-btn" title="Notifications">
+            <span class="badge">3</span>
+            <i data-lucide="bell"></i>
+          </button>
+          
+          <!-- Notification Dropdown Menu -->
+          <div class="notification-dropdown" id="home-notification-dropdown">
+            <div class="dropdown-header">
+              <h4>Recent Alerts</h4>
+              <span class="badge small">3 New</span>
+            </div>
+            <div class="dropdown-content">
+              <a href="HTML/map.html" class="notification-item unread">
+                <div class="notif-icon severe"><i data-lucide="alert-triangle"></i></div>
+                <div class="notif-text">
+                  <p class="notif-title">High Wave Alert</p>
+                  <p class="notif-desc">Mumbai coast line experiencing high tides.</p>
+                  <p class="notif-time">Just now</p>
+                </div>
+              </a>
+              <a href="HTML/map.html" class="notification-item unread">
+                <div class="notif-icon warning"><i data-lucide="cloud-lightning"></i></div>
+                <div class="notif-text">
+                  <p class="notif-title">Storm Warning</p>
+                  <p class="notif-desc">Approaching cyclone near Chennai.</p>
+                  <p class="notif-time">2 hours ago</p>
+                </div>
+              </a>
+              <a href="HTML/map.html" class="notification-item">
+                <div class="notif-icon info"><i data-lucide="info"></i></div>
+                <div class="notif-text">
+                  <p class="notif-title">System Update</p>
+                  <p class="notif-desc">New map layers added.</p>
+                  <p class="notif-time">1 day ago</p>
+                </div>
+              </a>
+            </div>
+            <div class="dropdown-footer">
+              <a href="HTML/map.html">View all on map</a>
+            </div>
+          </div>
+          <a href="HTML/profile.html" class="user-profile">
+            <div class="avatar">U</div>
+            <div>
+              <div class="profile-name">User</div>
+              <span class="profile-role">Observer</span>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="hero-bg">
+        <section class="content-area">
+
+          <!-- Goal Card -->
+          <article class="glass-card welcome-card">
+            <div class="card-header">
+              <h3>Our Goal: A Safer Community</h3>
+              <span class="card-badge">Mission</span>
+            </div>
+            <p class="card-description">
+              GeoNetra connects citizens and authorities through real-time hazard monitoring, rapid reporting, and
+              community-driven advisories — so that everyone can act swiftly and stay safe when it matters most.
+            </p>
+            <div class="card-footer">
+              <span class="status-indicator">Active Network</span>
+            </div>
+          </article>
+
+          <!-- Live Stats (Auto-scrolling numbers) -->
+          <div class="live-stats-bar glass-card">
+            <div class="stat-item">
+              <span class="stat-number" data-target="45">0</span>
+              <span class="stat-label">Reports Submitted</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="12">0</span>
+              <span class="stat-label">Coastal Alerts</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="6">0</span>
+              <span class="stat-label">High Wave Incidents</span>
+            </div>
+          </div>
+
+          <!-- View Map -->
+          <div class="view-map-wrapper">
+            <h2 class="section-title">Explore the Area</h2>
+            <a href="HTML/map.html" class="big-map-btn" tabindex="0">
+              <span class="map-icon"><i data-lucide="map"></i></span>
+              <span class="map-text">View Map</span>
+              <div class="blank-rectangle">
+                <div class="map-preview-container">
+                  <svg viewBox="0 0 400 450" class="india-map-preview" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Very Simplified India Boundary SVG Path -->
+                    <path d="M 152 45 L 140 30 L 120 40 L 110 60 L 115 80 L 105 90 L 80 100 L 70 120 L 50 140 L 40 170 L 30 190 L 35 210 L 45 230 L 60 250 L 70 280 L 85 320 L 100 360 L 125 410 L 135 430 L 150 435 L 160 410 L 180 380 L 200 340 L 220 310 L 240 280 L 250 260 L 280 230 L 310 200 L 340 190 L 360 170 L 370 150 L 360 140 L 330 130 L 290 120 L 270 125 L 250 130 L 240 110 L 230 90 L 210 70 L 180 50 Z" 
+                          fill="rgba(255, 255, 255, 0.1)" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+                  </svg>
+                  <div class="warning-dot loc-mumbai" title="High Wave - Mumbai"></div>
+                  <div class="warning-dot loc-chennai" title="Storm - Chennai"></div>
+                  <div class="warning-dot loc-kolkata" title="Flood - Kolkata"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </section>
+      </div>
+
+      <!-- ── Stories of Resilience Section ── -->
+      <section class="resilience-section">
+        <div class="resilience-header-wrapper">
+          <h2 class="section-title text-dark">Stories of Resilience</h2>
+          <p class="resilience-intro">Real accounts of courage, community, and survival against the odds.</p>
+        </div>
+
+        <div class="resilience-grid">
+          <!-- Story 1 -->
+          <div class="resilience-card">
+            <div class="resilience-card-image">
+              <img src="assets/IMG-20190805-WA0058.jpg" alt="NDRF rescue operations during 2019 floods" onerror="this.src='https://images.unsplash.com/photo-1544983058-29a3eec00c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+              <span class="resilience-date">Aug 2019</span>
+            </div>
+            <div class="resilience-card-content">
+              <h3 class="resilience-subtitle">When Humanity Stood Tall</h3>
+              <p class="resilience-paragraph">
+                During the 2019 floods, the courageous <strong>NDRF</strong> teams navigated violent currents to rescue thousands from submerged homes, proving that hope persists even in the darkest hours.
+              </p>
+              <button type="button" class="read-more-btn" id="story-link-ndrf">Open Advisories <i data-lucide="arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Story 2 -->
+          <div class="resilience-card">
+            <div class="resilience-card-image">
+              <img src="https://images.unsplash.com/photo-1509803874385-db7c23652552?w=800&q=80" alt="Cyclone Amphan Aftermath">
+              <span class="resilience-date">May 2020</span>
+            </div>
+            <div class="resilience-card-content">
+              <h3 class="resilience-subtitle">Surviving Cyclone Amphan</h3>
+              <p class="resilience-paragraph">
+                Winds reaching 260 km/h struck the coast. Yet, local fishermen formed human chains and community shelters, managing to evacuate 500+ vulnerable families before the eye of the storm hit.
+              </p>
+              <button type="button" class="read-more-btn" id="story-link-amphan">View Dashboard <i data-lucide="arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Story 3 -->
+          <div class="resilience-card">
+            <div class="resilience-card-image">
+              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Community Kitchen">
+              <span class="resilience-date">Dec 2023</span>
+            </div>
+            <div class="resilience-card-content">
+              <h3 class="resilience-subtitle">The Kitchens That Never Slept</h3>
+              <p class="resilience-paragraph">
+                When Chennai was submerged, youth volunteers converted a high school into a 24/7 kitchen, delivering over 10,000 hot meals daily to stranded residents via makeshift rafts.
+              </p>
+              <button type="button" class="read-more-btn" id="story-link-kitchens">Open Live Map <i data-lucide="arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Footer ── -->
+      <footer class="page-footer">
+        <div class="footer-content">
+          <p>&copy; 2026 GeoNetra &middot; Intelligent Hazard Monitoring Network</p>
+          <p class="footer-links">
+            <a href="HTML/dashboard.html">Dashboard</a>
+            <a href="HTML/map.html">Map</a>
+            <a href="HTML/hazard.html">Report</a>
+            <a href="HTML/profile.html">Profile</a>
+          </p>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+</body>
+
+</html>

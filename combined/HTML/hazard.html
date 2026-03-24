@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoNetra - Report Hazard</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/hazard.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!-- Leaflet CSS and JS (Free & Open Source, NO API Key needed) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Firebase handles form submit; script.js handles GPS + auth guard -->
+    <script type="module" src="../firebase.js"></script>
+    <script type="module" src="../script.js"></script>
+</head>
+
+<body data-page="report">
+    <div class="app-container">
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar" aria-label="Primary"></aside>
+
+        <!-- ── Main ── -->
+        <main class="main-wrapper">
+
+            <header class="top-header">
+                <div>
+                    <div class="header-title">Report a Hazard</div>
+                    <div class="header-subtitle">Your alert helps keep the community safe</div>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" title="Notifications">
+                        <span class="badge">3</span>
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <a href="profile.html" class="user-profile">
+                        <div class="avatar">U</div>
+                        <div>
+                            <div class="profile-name">User</div>
+                            <span class="profile-role">Observer</span>
+                        </div>
+                    </a>
+                </div>
+            </header>
+
+            <section class="content-area">
+                <h2 class="section-title">Submit a Report</h2>
+
+                <article class="glass-card form-card">
+                    <form class="report-form" id="hazard-form">
+
+                        <!-- Hazard Type saved as "type" -->
+                        <div class="form-group">
+                            <label for="h-type" class="form-label">Hazard Type *</label>
+                            <select id="h-type" class="form-input" required>
+                                <option value="" disabled selected>Select a hazard type</option>
+                                <option value="flood">Flood</option>
+                                <option value="cyclone">Cyclone</option>
+                                <option value="landslide">Landslide</option>
+                                <option value="earthquake">Earthquake</option>
+                                <option value="fire">Fire</option>
+                                <option value="storm">Storm</option>
+                                <option value="drought">Drought</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Location text, Map, and Coordinates -->
+                        <div class="form-group location-group">
+                            <label for="h-location" class="form-label">Location Details *</label>
+                            
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                <input type="text" id="h-location" class="form-input"
+                                    placeholder="Type an address and click Search, or drop a pin..." required>
+                                <button type="button" id="loc-btn-search" class="secondary-btn" style="white-space: nowrap;">Search Map</button>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <label class="form-label" style="margin: 0; font-size: 0.9em;">Pinpoint on Map</label>
+                                <button type="button" id="detect-location" class="detect-btn" title="Use my current location" style="padding: 6px 12px; font-size: 0.85em;">
+                                    <i data-lucide="locate"></i> Auto Detect
+                                </button>
+                            </div>
+                            
+                            <!-- Interactive Map Container -->
+                            <div id="hazard-map" style="height: 300px; width: 100%; border-radius: 8px; z-index: 1; border: 1px solid var(--border-light);"></div>
+                            <p class="form-hint" style="margin-top: 8px; font-size: 0.85rem; color: #64748b;">Click anywhere on the map to drop a pin.</p>
+                            
+                            <div style="margin-top: 12px;">
+                                <button type="button" id="confirm-location-btn" class="secondary-btn w-full" style="background-color: var(--card-bg); border-color: var(--primary); color: var(--primary);" disabled>
+                                    <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i> Confirm Location on Map
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Coordinates row - hidden to end-user, required for submission -->
+                        <div class="form-group coords-row" style="display: none;">
+                            <div>
+                                <label for="h-lat" class="form-label">Latitude</label>
+                                <input type="number" id="h-lat" class="form-input" placeholder="e.g. 13.0827" step="any" required>
+                            </div>
+                            <div>
+                                <label for="h-lng" class="form-label">Longitude</label>
+                                <input type="number" id="h-lng" class="form-input" placeholder="e.g. 80.2707" step="any" required>
+                            </div>
+                        </div>
+
+                        <!-- Severity saved as "severity" -->
+                        <div class="form-group">
+                            <label class="form-label">Severity Level</label>
+                            <div class="severity-selector">
+                                <input type="radio" name="severity" id="sev-low" value="low" checked>
+                                <label for="sev-low" class="severity-label">Low</label>
+
+                                <input type="radio" name="severity" id="sev-medium" value="medium">
+                                <label for="sev-medium" class="severity-label">Medium</label>
+
+                                <input type="radio" name="severity" id="sev-high" value="high">
+                                <label for="sev-high" class="severity-label">High</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Photo Upload -->
+                            <label for="photoInput">Upload Evidence (Optional):</label>
+                            <input type="file" id="photoInput" accept="image/*">
+                            <div id="photoPreviewWrap" class="photo-preview-wrap" hidden>
+                                <img id="photoPreview" class="photo-preview" alt="Selected evidence preview">
+                                <p id="photoPreviewName" class="photo-preview-name"></p>
+                            </div>
+                        </div>
+
+                        <!-- Description saved as "rawText" -->
+                        <div class="form-group">
+                            <label for="h-desc" class="form-label">Description *</label>
+                            <textarea id="h-desc" class="form-input input-textarea" rows="5"
+                                placeholder="Describe the hazard: what happened, when, and where." required></textarea>
+                        </div>
+
+                        <div class="form-group ai-summary-group">
+                            <button type="button" id="generateAiBtn" class="secondary-btn">Generate AI Summary</button>
+                            <div id="summaryPreviewContainer" class="ai-summary-wrap" hidden>
+                                <p id="summaryText" class="ai-summary-text"></p>
+                                <div class="ai-summary-actions">
+                                    <button type="button" id="approveSummaryBtn" class="secondary-btn">Looks Good</button>
+                                    <button type="button" id="discardSummaryBtn" class="secondary-btn secondary-btn-muted">Discard</button>
+                                </div>
+                            </div>
+                            <p id="aiSummaryStatus" class="ai-summary-status" hidden></p>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn" disabled style="opacity: 0.5; cursor: not-allowed;">Submit Report</button>
+
+                        <!-- Status message -->
+                        <p id="form-status" class="form-status" style="display:none;"></p>
+                    </form>
+                </article>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

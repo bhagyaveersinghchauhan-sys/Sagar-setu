@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoNetra - Map Events</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/map.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="../script.js"></script>
+</head>
+
+<body data-page="map">
+    <div class="app-container">
+
+        <!-- ── Sidebar ── -->
+    <aside class="sidebar" aria-label="Primary"></aside>
+
+        <!-- ── Main ── -->
+        <main class="main-wrapper">
+
+            <header class="top-header">
+                <div>
+                    <div class="header-title">Map Events</div>
+                    <div class="header-subtitle">Live geospatial hazard tracking</div>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" title="Notifications">
+                        <span class="badge">3</span>
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <a href="profile.html" class="user-profile">
+                        <div class="avatar">U</div>
+                        <div>
+                            <div class="profile-name">User</div>
+                            <span class="profile-role">Observer</span>
+                        </div>
+                    </a>
+                </div>
+            </header>
+
+            <div class="map-bg">
+                <section class="content-area map-layout">
+                    <div class="map-header-bar">
+                        <h2 class="section-title text-light map-header-title">Geospatial Hazard Map</h2>
+                        <button type="button" id="social-radar-btn" class="radar-btn">
+                            <i data-lucide="radio-tower"></i> Scan Social Radar
+                        </button>
+                    </div>
+                    <p id="social-radar-status" class="social-radar-status" hidden></p>
+                    
+                    <div class="map-and-panel">
+                        <!-- Leaflet map container — populated by script.js with live Firestore data -->
+                        <div id="map"></div>
+                        
+                        <!-- Collapsable Side Panel for Event Details -->
+                        <aside id="hazard-panel" class="hazard-panel collapsed">
+                            <div class="panel-header">
+                                <h3 id="panel-title">Hazard Details</h3>
+                                <button id="close-panel" class="icon-btn" title="Close Panel">
+                                    <i data-lucide="x"></i>
+                                </button>
+                            </div>
+                            <div class="panel-content">
+                                <div class="panel-hero-icon" id="panel-icon">⚠️</div>
+                                <h4 id="panel-type" class="panel-type-text">Unknown Event</h4>
+                                <div class="panel-meta">
+                                    <span class="meta-item"><i data-lucide="map-pin"></i> <span id="panel-location">Location</span></span>
+                                    <span class="meta-item"><i data-lucide="clock"></i> <span id="panel-time">Time</span></span>
+                                    <span class="meta-item"><i data-lucide="activity"></i> <span id="panel-severity" class="severity-badge">Severity</span></span>
+                                </div>
+                                <div id="panel-summary-section" class="panel-section" hidden>
+                                    <div class="panel-section-header">
+                                        <h5 class="panel-section-title">AI Summary</h5>
+                                        <span id="panel-summary-language" class="panel-summary-language"></span>
+                                    </div>
+                                    <div id="panel-summary-tabs" class="summary-tab-row" hidden>
+                                        <button type="button" class="summary-tab active" data-summary-lang="original">Original</button>
+                                        <button type="button" class="summary-tab" data-summary-lang="english">English</button>
+                                        <button type="button" class="summary-tab" data-summary-lang="hindi">Hindi</button>
+                                    </div>
+                                    <div class="panel-desc-box panel-summary-box">
+                                        <p id="panel-summary-text">AI summary will appear here.</p>
+                                    </div>
+                                </div>
+                                <div class="panel-section">
+                                    <h5 class="panel-section-title">Original Report</h5>
+                                    <div class="panel-desc-box panel-raw-box">
+                                        <p id="panel-raw-text">The reporter's original notes will appear here.</p>
+                                    </div>
+                                </div>
+                                <div id="panel-photo-section" class="panel-section" hidden>
+                                    <h5 class="panel-section-title">Submitted Evidence</h5>
+                                    <img id="panel-photo" class="panel-photo" alt="Submitted hazard evidence">
+                                </div>
+                                
+                                <button class="action-btn w-full mt-4">
+                                    <i data-lucide="share-2"></i> Share Alert
+                                </button>
+                            </div>
+                        </aside>
+                    </div>
+
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

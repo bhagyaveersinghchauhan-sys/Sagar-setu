@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoNetra - Hazard Advisories</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/advisories.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script type="module" src="../script.js"></script>
+</head>
+<body class="page-advisories" data-page="advisories">
+  <div class="app-container">
+    <aside class="sidebar" aria-label="Primary"></aside>
+    <main class="main-wrapper">
+      <div class="alert-banner">
+        <i data-lucide="alert-triangle"></i>
+        <span>High Risk Cyclone Alert in coastal regions. Please review evacuation guidance.</span>
+      </div>
+      <div class="advisories-container">
+        <div class="location-advisory">
+          <i data-lucide="map-pin"></i>
+          <span>Showing advisories for your region: <strong>Mumbai Coastal Zone</strong></span>
+        </div>
+        <header class="page-header">
+          <h1>Hazard Advisories and Safety Guidance</h1>
+          <p>Stay informed and prepared with expert-backed safety recommendations for natural hazards.</p>
+        </header>
+        <div class="safety-carousel">
+          <i data-lucide="info" class="carousel-icon"></i>
+          <div class="carousel-track-container">
+            <div class="carousel-track" id="carouselTrack">
+              <div class="carousel-slide">Do not walk or drive in flood waters. Turn around, do not drown.</div>
+              <div class="carousel-slide">Avoid misinformation and rely only on official alerts from local authorities.</div>
+              <div class="carousel-slide">Prepare an emergency kit with 72 hours of supplies for your family.</div>
+            </div>
+          </div>
+        </div>
+        <div class="cards-grid">
+          <article class="advisory-card">
+            <div class="card-header">
+              <div class="card-icon-circle icon-cyclone"><i data-lucide="tornado"></i></div>
+              <div class="card-title-area">
+                <h3>Cyclone Preparedness</h3>
+                <p>Tropical storms and hurricane-force winds</p>
+              </div>
+              <span class="risk-tag risk-high">High Risk</span>
+            </div>
+            <div class="card-body">
+              <details><summary>Warning Signs</summary><div class="details-content"><ul><li>Sudden drop in air pressure</li><li>Strong winds and dark clouds</li><li>Weather alerts from authorities</li></ul></div></details>
+              <details><summary>Immediate Actions</summary><div class="details-content"><ul><li>Stay indoors and secure windows</li><li>Keep emergency kit ready</li><li>Avoid coastal areas</li></ul></div></details>
+              <details><summary>Community Safety Tips</summary><div class="details-content"><ul><li>Help neighbors prepare</li><li>Share verified alerts only</li><li>Follow established evacuation routes</li></ul></div></details>
+              <details><summary>Emergency Contacts</summary><div class="details-content"><ul><li><strong>1078</strong> - National Disaster Helpline</li><li><strong>112</strong> - Emergency Services</li></ul></div></details>
+            </div>
+          </article>
+          <article class="advisory-card">
+            <div class="card-header">
+              <div class="card-icon-circle icon-flood"><i data-lucide="waves"></i></div>
+              <div class="card-title-area">
+                <h3>Flood Safety</h3>
+                <p>Coastal and urban flash-flood preparedness</p>
+              </div>
+              <span class="risk-tag risk-high">High Risk</span>
+            </div>
+            <div class="card-body">
+              <details><summary>Warning Signs</summary><div class="details-content"><ul><li>Unusually heavy sustained rainfall</li><li>Rapidly rising water levels in drains and rivers</li><li>Flash flood warnings issued by meteorologists</li></ul></div></details>
+              <details><summary>Immediate Actions</summary><div class="details-content"><ul><li>Never walk or drive through flood waters</li><li>Move to higher ground immediately</li><li>Turn off utilities at main switches if instructed</li></ul></div></details>
+              <details><summary>Community Safety Tips</summary><div class="details-content"><ul><li>Identify community high-ground routes</li><li>Assist elderly or disabled neighbors</li><li>Do not consume unboiled tap water</li></ul></div></details>
+              <details><summary>Emergency Contacts</summary><div class="details-content"><ul><li><strong>1070</strong> - Regional Relief Helpline</li><li><strong>112</strong> - Police and Fire Department</li></ul></div></details>
+            </div>
+          </article>
+          <article class="advisory-card">
+            <div class="card-header">
+              <div class="card-icon-circle icon-landslide"><i data-lucide="mountain-snow"></i></div>
+              <div class="card-title-area">
+                <h3>Landslide Risk Prevention</h3>
+                <p>Debris flows, mudslides, and earth movement</p>
+              </div>
+              <span class="risk-tag risk-med">Med Risk</span>
+            </div>
+            <div class="card-body">
+              <details><summary>Warning Signs</summary><div class="details-content"><ul><li>Leaning trees, new cracks, or shifting ground</li><li>A rumbling sound that increases in volume</li><li>Sudden surges or drops in stream water levels</li></ul></div></details>
+              <details><summary>Immediate Actions</summary><div class="details-content"><ul><li>Move away from the slide path if possible</li><li>If escape is not possible, curl into a tight ball</li><li>Stay alert during severe rainstorms</li></ul></div></details>
+              <details><summary>Community Safety Tips</summary><div class="details-content"><ul><li>Plant ground cover on slopes to strengthen terrain</li><li>Familiarize yourself with local landslide paths</li><li>Share structural damage reports with authorities</li></ul></div></details>
+              <details><summary>Emergency Contacts</summary><div class="details-content"><ul><li><strong>112</strong> - Emergency Rescue</li><li><strong>101</strong> - Local Fire Department</li></ul></div></details>
+            </div>
+          </article>
+          <article class="advisory-card">
+            <div class="card-header">
+              <div class="card-icon-circle icon-pollution"><i data-lucide="droplets"></i></div>
+              <div class="card-title-area">
+                <h3>Marine Pollution Response</h3>
+                <p>Chemical spills, oil leaks, and coastal hazards</p>
+              </div>
+              <span class="risk-tag risk-low">Low Risk</span>
+            </div>
+            <div class="card-body">
+              <details><summary>Warning Signs</summary><div class="details-content"><ul><li>Strong chemical odors or visible slicks on water</li><li>Sudden illness among wildlife and fish</li><li>Unusual coloring along the coastline</li></ul></div></details>
+              <details><summary>Immediate Actions</summary><div class="details-content"><ul><li>Stay upwind of the affected area to avoid fumes</li><li>Do not touch or clean up unknown chemicals</li><li>Report the incident to environmental authorities</li></ul></div></details>
+              <details><summary>Community Safety Tips</summary><div class="details-content"><ul><li>Follow local water usage restrictions</li><li>Avoid consuming local seafood until declared safe</li><li>Never burn hazardous marine debris</li></ul></div></details>
+              <details><summary>Emergency Contacts</summary><div class="details-content"><ul><li><strong>1554</strong> - Coast Guard Helpline</li><li><strong>112</strong> - Hazmat Emergency Response</li></ul></div></details>
+            </div>
+          </article>
+        </div>
+        <div class="sections-grid">
+          <section class="section-panel">
+            <h2><i data-lucide="briefcase-medical"></i> Basic Emergency Kit</h2>
+            <div class="kit-grid">
+              <div class="kit-item"><i data-lucide="droplet"></i><span>Water</span></div>
+              <div class="kit-item"><i data-lucide="flashlight"></i><span>Flashlight</span></div>
+              <div class="kit-item"><i data-lucide="cross"></i><span>First Aid</span></div>
+              <div class="kit-item"><i data-lucide="battery-charging"></i><span>Power Bank</span></div>
+              <div class="kit-item"><i data-lucide="file-check"></i><span>Documents</span></div>
+              <div class="kit-item"><i data-lucide="radio"></i><span>Radio</span></div>
+            </div>
+          </section>
+          <section class="section-panel">
+            <h2><i data-lucide="phone"></i> Emergency Contacts</h2>
+            <div class="contacts-list">
+              <div class="contact-card warning"><div class="contact-info"><div class="contact-icon"><i data-lucide="flame"></i></div><div class="contact-text"><h4>National Disaster Helpline</h4><p>Available 24/7</p></div></div><div class="contact-number">1078</div></div>
+              <div class="contact-card"><div class="contact-info"><div class="contact-icon"><i data-lucide="shield-alert"></i></div><div class="contact-text"><h4>Police and Fire</h4><p>Immediate emergencies</p></div></div><div class="contact-number">112</div></div>
+              <div class="contact-card"><div class="contact-info"><div class="contact-icon"><i data-lucide="ambulance"></i></div><div class="contact-text"><h4>Ambulance</h4><p>Medical emergencies</p></div></div><div class="contact-number">108</div></div>
+            </div>
+          </section>
+        </div>
+        <footer class="advisories-footer">
+          <p><strong>GeoNetra Advisories</strong> © 2026. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="../index.html">About Platform</a>
+            <a href="analytics.html">Data Sources</a>
+            <a href="profile.html">Terms and Privacy</a>
+            <a href="profile.html">Contact Support</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof lucide !== "undefined") {
+        lucide.createIcons();
+      }
+      document.querySelectorAll("details").forEach((targetDetail) => {
+        targetDetail.addEventListener("toggle", () => {
+          if (!targetDetail.open) return;
+          const parentCard = targetDetail.closest(".advisory-card");
+          if (!parentCard) return;
+          parentCard.querySelectorAll("details").forEach((detail) => {
+            if (detail !== targetDetail) {
+              detail.removeAttribute("open");
+            }
+          });
+        });
+      });
+      const track = document.getElementById("carouselTrack");
+      const slides = document.querySelectorAll(".carousel-slide");
+      if (track && slides.length > 0) {
+        let index = 0;
+        window.setInterval(() => {
+          index = (index + 1) % slides.length;
+          track.style.transform = `translateX(-${index * 100}%)`;
+        }, 4000);
+      }
+    });
+  </script>
+</body>
+</html>

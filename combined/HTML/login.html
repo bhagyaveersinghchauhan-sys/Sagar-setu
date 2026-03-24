@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoNetra - Verify Access</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/login.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script type="module" src="../script.js"></script>
+</head>
+
+<body class="login-page-animated-bg" data-page="report">
+    <div class="login-bg-overlay"></div>
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+    </div>
+    <div class="spots-container">
+        <div class="spot spot-1"></div>
+        <div class="spot spot-2"></div>
+        <div class="spot spot-3"></div>
+    </div>
+    <div class="app-container">
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar" aria-label="Primary"></aside>
+
+        <!-- ── Main ── -->
+        <main class="main-wrapper">
+
+            <header class="top-header">
+                <div>
+                    <div class="header-title">Verification</div>
+                    <div class="header-subtitle">Verify your number to continue</div>
+                </div>
+            </header>
+
+            <section class="content-area">
+                <div class="login-wrapper">
+                    <div class="login-card">
+
+                        <!-- Step 1: Phone number -->
+                        <div id="step-phone">
+                            <div class="login-header">
+                                <i data-lucide="smartphone" class="login-icon"></i>
+                                <h2>Enter Your Number</h2>
+                                <p>We'll send a one-time code to verify it's actually you</p>
+                            </div>
+
+                            <form id="phone-form" class="login-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210"
+                                        pattern="^[0-9]{10}$" minlength="10" maxlength="10" 
+                                        title="Please enter exactly 10 digits" required>
+                                </div>
+                                <button type="submit" class="login-submit-btn">Send OTP</button>
+                            </form>
+                        </div>
+
+                        <!-- Step 2: OTP -->
+                        <div id="step-otp" style="display:none;">
+                            <div class="login-header">
+                                <i data-lucide="key-round" class="login-icon"></i>
+                                <h2>Enter OTP</h2>
+                                <p id="otp-hint">A 6-digit code was sent to your number</p>
+                            </div>
+
+                            <form id="otp-form" class="login-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="otp">6-Digit Code</label>
+                                    <input type="text" id="otp" class="form-input otp-input" maxlength="6"
+                                        placeholder="123456" required>
+                                </div>
+                                <button type="submit" class="login-submit-btn">Verify &amp; Continue</button>
+                                <button type="button" class="resend-btn" id="resend-btn">Resend code</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoNetra - Dashboard</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script type="module" src="../script.js"></script>
+</head>
+
+<body data-page="dashboard">
+    <div class="app-container">
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar" aria-label="Primary"></aside>
+
+        <!-- ── Main ── -->
+        <main class="main-wrapper">
+
+            <header class="top-header">
+                <div>
+                    <div class="header-title">Dashboard</div>
+                    <div class="header-subtitle">System Overview &amp; Key Metrics</div>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" title="Notifications">
+                        <span class="badge">3</span>
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <a href="profile.html" class="user-profile">
+                        <div class="avatar">U</div>
+                        <div>
+                            <div class="profile-name">User</div>
+                            <span class="profile-role">Observer</span>
+                        </div>
+                    </a>
+                </div>
+            </header>
+
+            <div class="dashboard-bg">
+                <section class="content-area">
+
+                    <h2 class="section-title text-light">Available Services</h2>
+
+                    <div class="options-grid">
+
+                        <article class="option-card" style="--hue: 220;">
+                            <div class="card-body">
+                                <div class="card-icon"><i data-lucide="bar-chart-3"></i></div>
+                                <div class="card-content">
+                                    <h4>Analytics</h4>
+                                    <p>Real-time statistics, trend lines, and comprehensive historical data reports.</p>
+                                </div>
+                                <a href="analytics.html" class="card-btn"><span>Explore Analytics</span></a>
+                            </div>
+                        </article>
+
+                        <article class="option-card" style="--hue: 170;">
+                            <div class="card-body">
+                                <div class="card-icon"><i data-lucide="megaphone"></i></div>
+                                <div class="card-content">
+                                    <h4>Local Advisories</h4>
+                                    <p>Latest updates and official safety guidelines from local authorities.</p>
+                                </div>
+                                <a href="advisories.html" class="card-btn"><span>Open Advisories</span></a>
+                            </div>
+                        </article>
+
+                        <article class="option-card" style="--hue: 15;">
+                            <div class="card-body">
+                                <div class="card-icon"><i data-lucide="alert-triangle"></i></div>
+                                <div class="card-content">
+                                    <h4>Report Hazard</h4>
+                                    <p>Quickly submit hazard or safety concern reports in your area.</p>
+                                </div>
+                                <a href="hazard.html" class="card-btn"><span>Start Report</span></a>
+                            </div>
+                        </article>
+
+                        <article class="option-card" style="--hue: 260;">
+                            <div class="card-body">
+                                <div class="card-icon"><i data-lucide="map-pin"></i></div>
+                                <div class="card-content">
+                                    <h4>Map Events</h4>
+                                    <p>Track hazards and incidents geographically with interactive mapping.</p>
+                                </div>
+                                <a href="map.html" class="card-btn"><span>Open Map</span></a>
+                            </div>
+                        </article>
+
+                    </div>
+
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
