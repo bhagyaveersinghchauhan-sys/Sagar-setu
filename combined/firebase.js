@@ -206,11 +206,21 @@ if (hazardForm) {
     const latitude = parseFloat(document.getElementById("h-lat").value) || null;
     const longitude = parseFloat(document.getElementById("h-lng").value) || null;
     const severity = document.querySelector('input[name="severity"]:checked')?.value || "low";
+    const phone = document.getElementById("h-phone").value.trim();
     const rawText = document.getElementById("h-desc").value.trim();
     const photoInputElement = document.getElementById("photoInput");
     const imageFile = photoInputElement?.files?.[0] || null;
 
-    if (!type || !location || !rawText) {
+    if (!type || !location || !rawText || !phone) {
+      return;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+      formStatus.textContent = "Please enter a valid 10-digit phone number.";
+      formStatus.className = "form-status error";
+      formStatus.style.display = "block";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Report";
       return;
     }
 
@@ -255,6 +265,7 @@ if (hazardForm) {
       await addDoc(collection(db, "hazards"), {
         type,
         location,
+        phone,
         latitude,
         longitude,
         severity,
