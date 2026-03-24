@@ -1,72 +1,132 @@
+/* ══════════════════════════════════════════
+   DASHBOARD BACKGROUND
+══════════════════════════════════════════ */
 .dashboard-bg {
   flex: 1;
-  background: transparent;
-}
-
-.dashboard-bg .content-area {
-  display: grid;
-  gap: 1.25rem;
-  padding-top: 2rem;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.75)),
+    url('../assets/pexels-spacex-586056.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-bg .section-title {
-  margin: 0;
+  color: #fff;
+  margin-bottom: 2rem;
 }
 
+/* ══════════════════════════════════════════
+   DASHBOARD CARDS
+══════════════════════════════════════════ */
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.5rem;
-  align-items: stretch;
 }
 
 .option-card {
-  height: 100%;
-  border-radius: var(--radius-xl);
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+.option-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  border-color: hsla(var(--hue, 220), 80%, 65%, 0.6);
+}
+
+/* Coloured top stripe */
 .option-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
+  content: '';
+  display: block;
   height: 4px;
-  background: linear-gradient(90deg, hsl(var(--hue, 220), 85%, 52%), hsl(calc(var(--hue, 220) + 25), 85%, 58%));
+  background: linear-gradient(90deg,
+      hsl(var(--hue, 220), 80%, 55%),
+      hsl(calc(var(--hue, 220) + 30), 80%, 65%));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 
 .card-body {
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1.5rem;
-  min-height: 100%;
+  flex: 1;
+  gap: 0.35rem;
 }
 
 .card-icon {
-  color: hsl(var(--hue, 220), 85%, 48%);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: hsl(var(--hue, 220), 80%, 55%);
+  transition: transform 0.25s ease;
+}
+
+.option-card:hover .card-icon {
+  transform: scale(1.15);
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-content h4 {
-  color: var(--text-head);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.1rem;
-  margin-bottom: 0.4rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 0.35rem;
 }
 
 .card-content p {
-  color: var(--text-muted);
-  min-height: 7.5rem;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
 }
 
-@media (max-width: 1024px) {
-  .options-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.card-btn {
+  display: block;
+  width: 100%;
+  padding: 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #f1f5f9;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin-top: auto;
 }
 
-@media (max-width: 640px) {
+.option-card:hover .card-btn {
+  background: hsl(var(--hue, 220), 80%, 55%);
+  border-color: hsl(var(--hue, 220), 80%, 55%);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
   .options-grid {
     grid-template-columns: 1fr;
   }
